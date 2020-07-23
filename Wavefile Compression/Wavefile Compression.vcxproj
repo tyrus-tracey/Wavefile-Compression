@@ -18,6 +18,18 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="myApp.cpp" />
+    <ClCompile Include="myFrame.cpp" />
+    <ClCompile Include="myPanel.cpp" />
+    <ClCompile Include="myWaveFile.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="myApp.h" />
+    <ClInclude Include="myFrame.h" />
+    <ClInclude Include="myPanel.h" />
+    <ClInclude Include="myWaveFile.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <ProjectGuid>{BA94B000-EE6E-4ADE-803F-4243F15FD80F}</ProjectGuid>
@@ -90,7 +102,7 @@
       <AdditionalIncludeDirectories>$(WXWIN)\include; $(WXWIN)\include\msvc</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(WXWIN)\lib\vc_lib</AdditionalLibraryDirectories>
     </Link>
