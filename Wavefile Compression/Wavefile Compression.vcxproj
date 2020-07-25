@@ -19,12 +19,14 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="lzwdict.cpp" />
     <ClCompile Include="myApp.cpp" />
     <ClCompile Include="myFrame.cpp" />
     <ClCompile Include="myPanel.cpp" />
     <ClCompile Include="myWaveFile.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="lzwdict.h" />
     <ClInclude Include="myApp.h" />
     <ClInclude Include="myFrame.h" />
     <ClInclude Include="myPanel.h" />

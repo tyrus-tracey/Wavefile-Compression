@@ -35,6 +35,7 @@ void myPanel::paintEvent(wxPaintEvent& event)
 	wxBufferedPaintDC dc(this);
 	PrepareDC(dc);
 	drawBackground(dc);
+	displayCompression(dc);
 }
 
 // Prepare a clean background to draw the waveform on.
@@ -50,11 +51,6 @@ void myPanel::drawBackground(wxDC& dc)
 	return;
 }
 
-/*
-	Step 1: Read data from inputted wave file.
-	Step 2: Resize wave file data to within the screen limits.
-	Step 3: Display waveform.
-*/
 void myPanel::displayCompression(wxDC& dc) {
 
 	// Read wave file
@@ -68,7 +64,12 @@ void myPanel::displayCompression(wxDC& dc) {
 		}
 	}
 	if (!wavFile->IsOpened()) {
-		displayInfo(dc);
+		int test = wavFile->lzwCompression();
+		wxString txttest = "Org: " + wxString::Format(wxT("%i"), wavFile->getNumberOfSamples());
+		wxString testtxt = "LZW: " + wxString::Format(wxT("%i"), test);
+		dc.DrawText(txttest, wxPoint(10, 5));
+		dc.DrawText(testtxt, wxPoint(10, 20));
+		//displayInfo(dc);
 	}
 }
 
@@ -82,7 +83,6 @@ void myPanel::displayInfo(wxDC& dc)
 	wxString byteRate			= wxString::Format(wxT("%i"), wavFile->getByteRate());
 	wxString bitsPerSample		= wxString::Format(wxT("%i"), wavFile->getBitsPerSample());
 	wxString numberOfSamples	= wxString::Format(wxT("%i"), wavFile->getNumberOfSamples());
-	wxString maxAmplitude		= wxString::Format(wxT("%i"), wavFile->getMaxAmplitude());
 
 	//Draw mini-window
 	wxBrush brush = dc.GetBrush();
@@ -102,7 +102,6 @@ void myPanel::displayInfo(wxDC& dc)
 	displayText = "Avg. Byte Rate: " + byteRate;					dc.DrawText(displayText, wxPoint(10, 77)); 
 	displayText = "Bits Per Sample: " + bitsPerSample + " bits";	dc.DrawText(displayText, wxPoint(10, 95)); 
 	displayText = "# of Samples: " + numberOfSamples;				dc.DrawText(displayText, wxPoint(10, 113)); 
-	displayText = "Max Amplitude: " + maxAmplitude;					dc.DrawText(displayText, wxPoint(10, 131));
 
 	return;
 }

@@ -9,10 +9,14 @@ class myWaveFile : public wxFFile
 {
 public:
 	myWaveFile(wxString filepath);
+	myWaveFile(myWaveFile* copy);
 	~myWaveFile();
 	bool readHeader();
 	void readSubChunk1();
 	void readSubChunk2();
+
+	void huffmanCompression();
+	int lzwCompression();
 
 	unsigned short	getAudioFormat() const;
 	unsigned short	getChannels() const;
@@ -20,7 +24,6 @@ public:
 	uint32_t		getByteRate() const;
 	unsigned short	getBitsPerSample() const;
 	int				getNumberOfSamples() const;
-	long			getMaxAmplitude() const;
 
 private:
 
@@ -41,6 +44,5 @@ private:
 	uint32_t chunk2Size;
 	uint8_t * dataArray8b = NULL;
 	short* dataArray16b = NULL;
-	long maxAmplitude;
 };
 
