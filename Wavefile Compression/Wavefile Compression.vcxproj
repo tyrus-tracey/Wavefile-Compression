@@ -19,18 +19,28 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BinaryTree.cpp" />
+    <ClCompile Include="bstNode.cpp" />
+    <ClCompile Include="Helper.cpp" />
     <ClCompile Include="lzwdict.cpp" />
     <ClCompile Include="myApp.cpp" />
     <ClCompile Include="myFrame.cpp" />
     <ClCompile Include="myPanel.cpp" />
     <ClCompile Include="myWaveFile.cpp" />
+    <ClCompile Include="Node.cpp" />
+    <ClCompile Include="vectorbst.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BinaryTree.h" />
+    <ClInclude Include="bstNode.h" />
+    <ClInclude Include="Helper.h" />
     <ClInclude Include="lzwdict.h" />
     <ClInclude Include="myApp.h" />
     <ClInclude Include="myFrame.h" />
     <ClInclude Include="myPanel.h" />
     <ClInclude Include="myWaveFile.h" />
+    <ClInclude Include="Node.h" />
+    <ClInclude Include="vectorbst.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

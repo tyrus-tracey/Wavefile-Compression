@@ -131,7 +131,17 @@ void myWaveFile::readSubChunk2() {
 	Close(); // Indicate successful read
 }
 
-//bug: appended ints to stream become a single number, delineated only by '-'
+//vector based BST?
+int myWaveFile::huffmanCompression()
+{
+	std::vector<std::string> vec;
+	for (int i = 0; i < numberOfSamples; i++) {
+		vec.push_back(std::to_string(dataArray16b[i]));
+	}
+
+
+}
+
 int myWaveFile::lzwCompression()
 {
 	std::vector<std::string> vec;
