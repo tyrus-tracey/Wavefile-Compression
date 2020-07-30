@@ -7,14 +7,14 @@
 struct CompareNodes{
 	bool operator()(const Node node1, const Node node2)
 	{
-	return node1.getFrequency() < node2.getFrequency();
+	return node1.getFrequency() > node2.getFrequency();
 }
 };
 
 BinaryTree::BinaryTree(std::vector<Node> distribution)
 	:treeSize(distribution.size()), rootNode(nullptr), position(rootNode)
 {
-	//Create vector of allocated node pointers
+	//Create min-heap of allocated node pointers
 	std::vector<Node>::iterator iter = distribution.begin();
 	std::priority_queue<Node*, std::vector<Node*>, CompareNodes> nodeQueue;
 	std::vector<Node*> junkList;
@@ -24,9 +24,9 @@ BinaryTree::BinaryTree(std::vector<Node> distribution)
 		iter++;
 	}
 
-	// 1. Join smallest-frequency nodes to a parent
-	// 2. Remove nodes from vector
-	// 3. Append parent back to vector
+	// 1. Remove least-common nodes
+	// 2. join to a parent
+	// 3. Append parent back to queue
 	Node* left;
 	Node* right;
 	Node* parent;
@@ -41,20 +41,6 @@ BinaryTree::BinaryTree(std::vector<Node> distribution)
 		parent = new Node(left, right);
 		nodeQueue.push(parent);
 	}
-	/*
-	while(nodeList.size() > 1) { 
-		treeNode = findMin(nodeList);
-		left = new Node(*treeNode);
-		junkList.push_back(*treeNode);
-		nodeList.erase(treeNode); 
-		treeNode = findMin(nodeList);
-		right = new Node(*treeNode);
-		junkList.push_back(*treeNode);
-		nodeList.erase(treeNode); 
-		parent = new Node(left, right);
-		nodeList.push_back(parent);
-	}
-	*/
 	
 	// Delete allocated nodes 
 	std::vector<Node*>::iterator pNodeIterator = junkList.begin();
