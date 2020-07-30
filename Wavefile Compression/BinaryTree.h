@@ -2,6 +2,14 @@
 #include "Node.h"
 #include <vector>
 
+// Compare for lower-frequency node
+struct CompareNodes {
+	bool operator()(const Node node1, const Node node2)
+	{
+		return node1.getFrequency() > node2.getFrequency();
+	}
+};
+
 class BinaryTree
 {
 public:

@@ -4,6 +4,7 @@
 #include "lzwdict.h"
 #include "BinaryTree.h"
 #include "Helper.h"
+#include <queue>
 
 // Using base class constructor, open the wave file in binary mode
 myWaveFile::myWaveFile(wxString filepath)
@@ -137,17 +138,22 @@ void myWaveFile::readSubChunk2() {
 	Close(); // Indicate successful read
 }
 
-
 int myWaveFile::huffmanCompression()
 {
-	std::vector<std::string> vec;
+	//heap-sort samples into a vector
+	std::vector<std::string> stringVector;
+	std::priority_queue<std::string, std::vector<std::string>, std::greater<std::string>> stringQueue;
 	for (int i = 0; i < numberOfSamples; i++) {
-		vec.push_back(std::to_string(dataArray16b[i]));
+		stringQueue.push(std::to_string(dataArray16b[i])); 
 	}
-	symbolDistribution dist(vec); //VERY SLOW
+	while (!stringQueue.empty()) {
+		stringVector.push_back(stringQueue.top());
+		stringQueue.pop();
+	}
+	symbolDistribution dist(stringVector); 
 
 
-	BinaryTree huffTree(dist.getData()); //NOT AS SLOW
+	BinaryTree huffTree(dist.getData()); 
 	return huffTree.size(); //how 2 represent compression ratio?
 }
 

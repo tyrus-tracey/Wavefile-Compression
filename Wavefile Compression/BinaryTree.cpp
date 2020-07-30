@@ -3,14 +3,6 @@
 #include <queue>
 #include <iostream>
 
-// Compare for lower-frequency node
-struct CompareNodes{
-	bool operator()(const Node node1, const Node node2)
-	{
-	return node1.getFrequency() > node2.getFrequency();
-}
-};
-
 BinaryTree::BinaryTree(std::vector<Node> distribution)
 	:treeSize(distribution.size()), rootNode(nullptr), position(rootNode)
 {

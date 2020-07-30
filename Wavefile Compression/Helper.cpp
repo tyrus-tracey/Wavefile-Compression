@@ -8,42 +8,50 @@
 #include "Node.h"
 #include "Helper.h"
 
-
-symbolDistribution::symbolDistribution(std::vector<std::string> input)
-{
-    std::vector<std::string>::iterator iter = input.begin();
-    while (iter != input.end()) {
-        insert(*iter);
-        iter++;
+// Compare for lower-frequency node
+struct CompareNodes {
+    bool operator()(const Node node1, const Node node2)
+    {
+        return node1.getFrequency() > node2.getFrequency();
     }
+};
+
+/*
+itor = vec.begin();								// represents a symbol
+    while(itor != vec.end() )
+        scan = iter++;
+        freq = 1;
+        while(*scan == *itor) {						// until the next symbol is found increment frequency
+            freq++;
+            scan++;
+        }
+        distribution.push_back( Node(*itor, freq) );// create node
+        itor = scan;								// repeat with next symbol
+    }
+ */
+symbolDistribution::symbolDistribution(std::vector<std::string>& input)
+{
+    int freq;
+    std::vector<std::string>::iterator iter = input.begin();
+    std::string symbol;
+    while (iter != input.end()) {
+        symbol = *iter;
+        freq = 0;
+        if (symbol == "9999") {
+            int test = 0;
+        }
+        while (iter != input.end() && symbol == *iter) {
+            freq++;
+            iter++;
+        }
+        data.push_back(Node(symbol, freq));
+    }
+    
 }
 
 symbolDistribution::~symbolDistribution()
 {
 
-}
-
-void symbolDistribution::insert(std::string symbol)
-{
-    std::vector<Node>::iterator iter = find(symbol);
-    if (iter != data.end()) {
-        (*iter)++;
-    }
-    else {
-        data.push_back(Node(symbol, 1));
-    }
-}
-
-std::vector<Node>::iterator symbolDistribution::find(std::string symbol)
-{
-    std::vector<Node>::iterator iter = data.begin();
-    while (iter != data.end()) {
-        if (iter->element() == symbol) {
-            return iter;
-        }
-        iter++;
-    }
-    return iter;
 }
 
 std::vector<Node> symbolDistribution::getData()
@@ -61,18 +69,3 @@ int symbolDistribution::getSum()
     }
     return sum;
 }
-
-
-std::vector<Node*>::iterator findMin(std::vector<Node*>& distribution) {
-    std::vector<Node*>::iterator min = distribution.begin();
-    std::vector<Node*>::iterator iter = distribution.begin();
-    while (iter != distribution.end()) {
-        if ((*iter)->getFrequency() < (*min)->getFrequency()) {
-            min = iter;
-        }
-        iter++;
-    }
-    return min;
-}
-
-
