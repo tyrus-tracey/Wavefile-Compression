@@ -15,7 +15,7 @@ public:
 	void readSubChunk1();
 	void readSubChunk2();
 
-	void huffmanCompression();
+	int huffmanCompression();
 	int lzwCompression();
 
 	unsigned short	getAudioFormat() const;
@@ -42,6 +42,7 @@ private:
 	
 	//SubChunk2
 	uint32_t chunk2Size;
+	long maxAmplitude;
 	uint8_t * dataArray8b = NULL;
 	short* dataArray16b = NULL;
 };

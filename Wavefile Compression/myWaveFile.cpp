@@ -2,13 +2,15 @@
 #include "wx/wx.h"
 #include "intrin.h"
 #include "lzwdict.h"
+#include "BinaryTree.h"
+#include "Helper.h"
 
 // Using base class constructor, open the wave file in binary mode
 myWaveFile::myWaveFile(wxString filepath)
 	: wxFFile(filepath, "rb")
 {
 	filesize = 0; 
-
+	maxAmplitude = 0;
 	chunk1Size = 0;
 	audioFormat = 0;
 	channels = 0;
@@ -111,12 +113,14 @@ void myWaveFile::readSubChunk2() {
 	numberOfSamples = (chunk2Size / channels) / (bitsPerSample / 8);
 
 	int i = 0;
+	long max = 0;
 	//Begin reading audio data
 	if (bitsPerSample == 8) {
 		dataArray8b = new uint8_t[numberOfSamples];
 		uint8_t* ptr = dataArray8b;
 		for (i = 0; i < numberOfSamples; i++) {
 			Read(ptr, 1);
+			if (abs(*ptr) > max) { max = *ptr; }
 			ptr++;
 		}
 	}
@@ -125,13 +129,28 @@ void myWaveFile::readSubChunk2() {
 		short* ptr = dataArray16b;
 		for (i = 0; i < numberOfSamples; i++) {
 			Read(ptr, 2);
+			if (abs(*ptr) > max) { max = *ptr; }
 			ptr++;
 		}
 	}
+	maxAmplitude = max;
 	Close(); // Indicate successful read
 }
 
-//bug: appended ints to stream become a single number, delineated only by '-'
+
+int myWaveFile::huffmanCompression()
+{
+	std::vector<std::string> vec;
+	for (int i = 0; i < numberOfSamples; i++) {
+		vec.push_back(std::to_string(dataArray16b[i]));
+	}
+	symbolDistribution dist(vec); //VERY SLOW
+
+
+	BinaryTree huffTree(dist.getData()); //NOT AS SLOW
+	return huffTree.size(); //how 2 represent compression ratio?
+}
+
 int myWaveFile::lzwCompression()
 {
 	std::vector<std::string> vec;
