@@ -144,9 +144,17 @@ int myWaveFile::huffmanCompression()
 	std::vector<std::string> stringVector;
 	//heap-sort string-converted samples
 	std::priority_queue<std::string, std::vector<std::string>, std::greater<std::string>> stringQueue;
-	for (int i = 0; i < numberOfSamples; i++) {
-		stringQueue.push(std::to_string(dataArray16b[i])); 
+	if (bitsPerSample == 16) {
+		for (int i = 0; i < numberOfSamples; i++) {
+			stringQueue.push(std::to_string(dataArray16b[i]));
+		}
 	}
+	else {
+		for (int i = 0; i < numberOfSamples; i++) {
+			stringQueue.push(std::to_string(dataArray8b[i]));
+		}
+	}
+	
 	//insert min-element back to vector
 	while (!stringQueue.empty()) {
 		stringVector.push_back(stringQueue.top());
@@ -165,9 +173,17 @@ int myWaveFile::lzwCompression()
 {
 	// convert samples to strings
 	std::stringstream sampleStream;
-	for (int i = 0; i < numberOfSamples; i++) {
-		sampleStream << std::to_string(dataArray16b[i]);
+	if (bitsPerSample == 16) {
+		for (int i = 0; i < numberOfSamples; i++) {
+			sampleStream << std::to_string(dataArray16b[i]);
+		}
 	}
+	else {
+		for (int i = 0; i < numberOfSamples; i++) {
+			sampleStream << std::to_string(dataArray8b[i]);
+		}
+	}
+	
 	lzwdict dict(sampleStream);
 
 	return dict.outputSize();
