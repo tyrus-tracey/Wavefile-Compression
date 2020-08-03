@@ -22,9 +22,11 @@ public:
 	void printTree();
 	void deleteTree(Node* node);
 	void generateCodes();
+	int totalSize();
 	double averageCodeLength();
 
 private:
+	int symbolSize(Node* node);
 	void generateCode(Node* node);
 	double getCodeLength(Node* node);
 	void printNode(Node* node);

@@ -64,14 +64,16 @@ void myPanel::displayCompression(wxDC& dc) {
 		}
 	}
 	if (!wavFile->IsOpened()) {
-		int lzwTest = wavFile->lzwCompression();
-		int hufTest = wavFile->huffmanCompression();
-		wxString txttest = "Org: " + wxString::Format(wxT("%i"), wavFile->getNumberOfSamples());
-		wxString testtxt = "LZW: " + wxString::Format(wxT("%i"), lzwTest);
-		wxString testetw = "Huf: " + wxString::Format(wxT("%i"), hufTest);
-		dc.DrawText(txttest, wxPoint(10, 5));
-		dc.DrawText(testtxt, wxPoint(10, 20));
-		dc.DrawText(testetw, wxPoint(10, 35));
+		int lzwSize = wavFile->lzwCompression();
+		int hufSize = wavFile->huffmanCompression();
+		wxString orgTxt = "Orginal File Size: " + wxString::Format(wxT("%i"), wavFile->fileSize());
+		wxString hufTxt = "Huffman Size: " + wxString::Format(wxT("%i"), hufSize);
+		wxString hufCmp = "Compression Ratio: " + wxString::Format(wxT("%f"), double(wavFile->fileSize()) / hufSize);
+		wxString testtxt = "LZW Size: " + wxString::Format(wxT("%i"), lzwSize);
+		dc.DrawText(orgTxt, wxPoint(10, 5));
+		dc.DrawText(hufTxt, wxPoint(10, 20));
+		dc.DrawText(hufCmp, wxPoint(210, 20));
+		dc.DrawText(testtxt, wxPoint(10, 35));
 		//displayInfo(dc);
 	}
 }

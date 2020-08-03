@@ -101,6 +101,13 @@ void BinaryTree::generateCodes()
 	}
 }
 
+// Returns size of compressed file in bytes
+int BinaryTree::totalSize()
+{
+	return symbolSize(rootNode) / 8;
+}
+
+
 double BinaryTree::averageCodeLength()
 {
 	if (!empty()) {
@@ -111,9 +118,19 @@ double BinaryTree::averageCodeLength()
 	}
 }
 
+int BinaryTree::symbolSize(Node* node)
+{
+	if (node->isExternal()) {
+		return (node->getFrequency() * node->getCode().length());
+	}
+
+	int sum = symbolSize(node->left()) + symbolSize(node->right());
+	return sum;
+}
+
 void BinaryTree::generateCode(Node* node)
 {
-	if (node == nullptr || node == NULL) {
+	if (node == nullptr) {
 		return;
 	}
 	if (node->isExternal()) {

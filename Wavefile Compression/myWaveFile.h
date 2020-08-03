@@ -18,6 +18,8 @@ public:
 	int huffmanCompression();
 	int lzwCompression();
 
+	int fileSize() const;
+
 	unsigned short	getAudioFormat() const;
 	unsigned short	getChannels() const;
 	uint32_t		getSampleRate() const;

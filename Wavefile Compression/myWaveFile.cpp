@@ -24,6 +24,7 @@ myWaveFile::myWaveFile(wxString filepath)
 }
 
 myWaveFile::myWaveFile(myWaveFile* copy)
+	:maxAmplitude(0)
 {
 	filesize = copy->filesize;
 
@@ -156,7 +157,8 @@ int myWaveFile::huffmanCompression()
 
 	// build the Huffman tree
 	BinaryTree huffTree(dist.getData()); 
-	return huffTree.size(); //how 2 represent compression ratio?
+	huffTree.generateCodes();
+	return huffTree.totalSize(); 
 }
 
 int myWaveFile::lzwCompression()
@@ -169,6 +171,11 @@ int myWaveFile::lzwCompression()
 	lzwdict dict(sampleStream);
 
 	return dict.outputSize();
+}
+
+int myWaveFile::fileSize() const
+{
+	return filesize + 8;
 }
 
 unsigned short myWaveFile::getAudioFormat() const
