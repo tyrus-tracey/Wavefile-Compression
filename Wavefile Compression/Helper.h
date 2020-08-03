@@ -10,11 +10,12 @@
 #include <list>
 #include "Node.h"
 
+
+// A record of nodes+frequencies to create Huffman trees
 class symbolDistribution
 {
 public:
     symbolDistribution(std::vector<std::string>& input);
-    ~symbolDistribution();
     int getSum();
     std::vector<Node> getData();
     

@@ -16,19 +16,7 @@ struct CompareNodes {
     }
 };
 
-/*
-itor = vec.begin();								// represents a symbol
-    while(itor != vec.end() )
-        scan = iter++;
-        freq = 1;
-        while(*scan == *itor) {						// until the next symbol is found increment frequency
-            freq++;
-            scan++;
-        }
-        distribution.push_back( Node(*itor, freq) );// create node
-        itor = scan;								// repeat with next symbol
-    }
- */
+// Takes a sorted string vector and creates nodes with associated frequencies
 symbolDistribution::symbolDistribution(std::vector<std::string>& input)
 {
     int freq;
@@ -37,21 +25,13 @@ symbolDistribution::symbolDistribution(std::vector<std::string>& input)
     while (iter != input.end()) {
         symbol = *iter;
         freq = 0;
-        if (symbol == "9999") {
-            int test = 0;
+        while (iter != input.end() && symbol == *iter) {// second bounds-check required here
+            freq++;                                     // otherwise the program will try to
+            iter++;                                     // dereference input.end()
         }
-        while (iter != input.end() && symbol == *iter) {
-            freq++;
-            iter++;
-        }
-        data.push_back(Node(symbol, freq));
+        data.push_back(Node(symbol, freq));             // Create node
     }
     
-}
-
-symbolDistribution::~symbolDistribution()
-{
-
 }
 
 std::vector<Node> symbolDistribution::getData()

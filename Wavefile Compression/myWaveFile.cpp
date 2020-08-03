@@ -140,30 +140,33 @@ void myWaveFile::readSubChunk2() {
 
 int myWaveFile::huffmanCompression()
 {
-	//heap-sort samples into a vector
 	std::vector<std::string> stringVector;
+	//heap-sort string-converted samples
 	std::priority_queue<std::string, std::vector<std::string>, std::greater<std::string>> stringQueue;
 	for (int i = 0; i < numberOfSamples; i++) {
 		stringQueue.push(std::to_string(dataArray16b[i])); 
 	}
+	//insert min-element back to vector
 	while (!stringQueue.empty()) {
 		stringVector.push_back(stringQueue.top());
 		stringQueue.pop();
 	}
+	// translate strings into nodes
 	symbolDistribution dist(stringVector); 
 
-
+	// build the Huffman tree
 	BinaryTree huffTree(dist.getData()); 
 	return huffTree.size(); //how 2 represent compression ratio?
 }
 
 int myWaveFile::lzwCompression()
 {
-	std::vector<std::string> vec;
+	// convert samples to strings
+	std::stringstream sampleStream;
 	for (int i = 0; i < numberOfSamples; i++) {
-		vec.push_back(std::to_string(dataArray16b[i]));
+		sampleStream << std::to_string(dataArray16b[i]);
 	}
-	lzwdict dict(vec);
+	lzwdict dict(sampleStream);
 
 	return dict.outputSize();
 }

@@ -1,5 +1,5 @@
 #pragma once
-#include <map>
+#include <unordered_map>
 #include <string>
 #include <vector>
 #include <iomanip>
@@ -8,7 +8,7 @@
 class lzwdict
 {
 public:
-	lzwdict(std::vector<std::string> data);
+	lzwdict(std::stringstream& input);
 	~lzwdict();
 	void insert(std::string symbol);
 	int getCode(std::string symbol);
@@ -16,10 +16,8 @@ public:
 	int outputSize();
 
 private:
-	void expand();
-	std::string* codes;	//array-based dictionary
-	int position;		//next available space in dictionary
-	int capacity = 500;		//default limit of 256
+	std::unordered_map <std::string, int> codes;
+	int currentCode;		
 	std::vector<int> output;
 };
 

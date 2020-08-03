@@ -64,13 +64,13 @@ void myPanel::displayCompression(wxDC& dc) {
 		}
 	}
 	if (!wavFile->IsOpened()) {
-		//int lzwTest = wavFile->lzwCompression();
+		int lzwTest = wavFile->lzwCompression();
 		int hufTest = wavFile->huffmanCompression();
 		wxString txttest = "Org: " + wxString::Format(wxT("%i"), wavFile->getNumberOfSamples());
-		//wxString testtxt = "LZW: " + wxString::Format(wxT("%i"), lzwTest);
+		wxString testtxt = "LZW: " + wxString::Format(wxT("%i"), lzwTest);
 		wxString testetw = "Huf: " + wxString::Format(wxT("%i"), hufTest);
 		dc.DrawText(txttest, wxPoint(10, 5));
-		//dc.DrawText(testtxt, wxPoint(10, 20));
+		dc.DrawText(testtxt, wxPoint(10, 20));
 		dc.DrawText(testetw, wxPoint(10, 35));
 		//displayInfo(dc);
 	}
