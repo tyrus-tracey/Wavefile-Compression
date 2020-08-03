@@ -17,7 +17,6 @@ public:
 	void paintEvent(wxPaintEvent& event);
 	void drawBackground(wxDC& dc);
 	void displayCompression(wxDC& dc);
-	void displayInfo(wxDC& dc);
 	myWaveFile* getFile();
 
 private:

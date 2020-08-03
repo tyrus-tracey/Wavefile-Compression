@@ -72,41 +72,7 @@ void myPanel::displayCompression(wxDC& dc) {
 		wxString lzwTxt = "LZW Compression Ratio: " + wxString::Format(wxT("%f"), lzwComp);
 		dc.DrawText(lzwTxt, wxPoint(10, 5));
 		dc.DrawText(hufTxt, wxPoint(10, 25));
-		//displayInfo(dc);
 	}
-}
-
-// Display wave file parameters.
-void myPanel::displayInfo(wxDC& dc)
-{
-	wxString displayText;
-	wxString format				= (wavFile->getAudioFormat() == 1 ? "PCM" : "Unknown");
-	wxString channels			= (wavFile->getChannels() == 1 ? "Mono" : "Stereo");
-	wxString sampleRate			= wxString::Format(wxT("%i"), wavFile->getSampleRate());
-	wxString byteRate			= wxString::Format(wxT("%i"), wavFile->getByteRate());
-	wxString bitsPerSample		= wxString::Format(wxT("%i"), wavFile->getBitsPerSample());
-	wxString numberOfSamples	= wxString::Format(wxT("%i"), wavFile->getNumberOfSamples());
-
-	//Draw mini-window
-	wxBrush brush = dc.GetBrush();
-	wxPen pen = dc.GetPen();
-	pen.SetWidth(5);
-	pen.SetColour(wxColour(100, 150, 200));
-	brush.SetColour(wxColour(190, 210, 255));
-	dc.SetPen(pen);
-	dc.SetBrush(brush);
-	dc.DrawRectangle(0, 0, 250, 155);
-
-	//Display wave file information
-	displayText = wavFile->GetName();								dc.DrawText(displayText, wxPoint(10, 5));
-	displayText = "Audio Format: " + format;						dc.DrawText(displayText, wxPoint(10, 23));  
-	displayText = "Channels: " + channels;							dc.DrawText(displayText, wxPoint(10, 41)); 
-	displayText = "Sample Rate: " + sampleRate + "Hz";				dc.DrawText(displayText, wxPoint(10, 59)); 
-	displayText = "Avg. Byte Rate: " + byteRate;					dc.DrawText(displayText, wxPoint(10, 77)); 
-	displayText = "Bits Per Sample: " + bitsPerSample + " bits";	dc.DrawText(displayText, wxPoint(10, 95)); 
-	displayText = "# of Samples: " + numberOfSamples;				dc.DrawText(displayText, wxPoint(10, 113)); 
-
-	return;
 }
 
 myWaveFile* myPanel::getFile()

@@ -45,7 +45,7 @@ private:
 	//SubChunk2
 	uint32_t chunk2Size;
 	long maxAmplitude;
-	uint8_t * dataArray8b = NULL;
-	short* dataArray16b = NULL;
+	uint8_t * dataArray8b = nullptr;
+	short* dataArray16b = nullptr;
 };
 
