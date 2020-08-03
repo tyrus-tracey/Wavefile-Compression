@@ -11,13 +11,13 @@ public:
 	lzwdict(std::stringstream& input);
 	~lzwdict();
 	void insert(std::string symbol);
-	int getCode(std::string symbol);
+	uint16_t getCode(std::string symbol);
 	bool hasSymbol(std::string symbol);
 	int outputSize();
 
 private:
-	std::unordered_map <std::string, int> codes;
-	int currentCode;		
-	std::vector<int> output;
+	std::unordered_map <std::string, uint16_t> codes;
+	uint16_t currentCode;		
+	std::vector<uint16_t> output;
 };
 

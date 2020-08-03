@@ -39,7 +39,7 @@ void lzwdict::insert(std::string symbol)
 }
 
 //linear search of array, returns matching codeword
-int lzwdict::getCode(std::string symbol)
+uint16_t lzwdict::getCode(std::string symbol)
 {
 	return codes.find(symbol)->second;
 }
@@ -55,5 +55,6 @@ bool lzwdict::hasSymbol(std::string symbol)
 
 int lzwdict::outputSize()
 {
-	return output.size();
+	int codeSize = sizeof(uint16_t);
+	return output.size() * codeSize;
 }
