@@ -5,9 +5,6 @@ wxBEGIN_EVENT_TABLE(myPanel, wxPanel)
 EVT_PAINT(myPanel::paintEvent)
 END_EVENT_TABLE()
 
-//Using the base class constructor, create a panel and an associated myWaveFile as a child
-//The parent/child relationship allows for multiple panels to open with each one 
-//	having it's own waveform. However, currently this is not implemented.
 myPanel::myPanel(wxFrame* parent, const wxString filepath) 
 	: wxPanel(parent, wxID_ANY, wxPoint(0,0), parent->GetSize())
 {
@@ -38,7 +35,7 @@ void myPanel::paintEvent(wxPaintEvent& event)
 	displayCompression(dc);
 }
 
-// Prepare a clean background to draw the waveform on.
+// Prepare a clean background to draw on.
 void myPanel::drawBackground(wxDC& dc)
 {
 	wxBrush brush = dc.GetBrush();	// Rectangle body 
@@ -51,6 +48,7 @@ void myPanel::drawBackground(wxDC& dc)
 	return;
 }
 
+// Performs compression and displays compression ratios
 void myPanel::displayCompression(wxDC& dc) {
 
 	// Read wave file

@@ -1,11 +1,11 @@
 #include "lzwdict.h"
 #include <iostream>
 
-//Creates an array-based lookup method of a fixed size (expands if limit reached)
+//Creates a hash-table dictionary and outputs codes to a vector
 lzwdict::lzwdict(std::stringstream& input)
 	: currentCode(0)
 {
-	//initialize dictionary for values 0...9 and -
+	//initialize dictionary for values 0...9 and '-'
 	int i;
 	std::string s;
 	char c;
@@ -32,19 +32,19 @@ lzwdict::~lzwdict()
 {
 }
 
-//insert string into dictionary, using index as the codeword
+//insert string into dictionary with code
 void lzwdict::insert(std::string symbol)
 {
 	codes[symbol] = ++currentCode;
 }
 
-//linear search of array, returns matching codeword
+//returns matching codeword of symbol
 uint16_t lzwdict::getCode(std::string symbol)
 {
 	return codes.find(symbol)->second;
 }
 
-//linear search of array, returns true if match found
+//returns true if found in dictionary
 bool lzwdict::hasSymbol(std::string symbol)
 {
 	if (codes.find(symbol) != codes.end()) {
@@ -53,6 +53,7 @@ bool lzwdict::hasSymbol(std::string symbol)
 	return false;
 }
 
+//number of codes * bytes per code
 int lzwdict::outputSize()
 {
 	int codeSize = sizeof(uint16_t);

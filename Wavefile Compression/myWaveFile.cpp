@@ -139,6 +139,7 @@ void myWaveFile::readSubChunk2() {
 	Close(); // Indicate successful read
 }
 
+// returns output size in bytes
 int myWaveFile::huffmanCompression()
 {
 	std::vector<std::string> stringVector;
@@ -169,9 +170,10 @@ int myWaveFile::huffmanCompression()
 	return huffTree.totalSize(); 
 }
 
+//returns output size in bytes
 int myWaveFile::lzwCompression()
 {
-	// convert samples to strings
+	// feed samples to string stream
 	std::stringstream sampleStream;
 	if (bitsPerSample == 16) {
 		for (int i = 0; i < numberOfSamples; i++) {
@@ -183,7 +185,6 @@ int myWaveFile::lzwCompression()
 			sampleStream << std::to_string(dataArray8b[i]);
 		}
 	}
-	
 	lzwdict dict(sampleStream);
 
 	return dict.outputSize();

@@ -118,6 +118,7 @@ double BinaryTree::averageCodeLength()
 	}
 }
 
+// Get codeword size (Frequency * code length) of external nodes
 int BinaryTree::symbolSize(Node* node)
 {
 	if (node->isExternal()) {
